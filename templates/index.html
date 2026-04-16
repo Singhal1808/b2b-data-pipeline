@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Startup Dashboard</title>
+
+<style>
+
+body {
+    font-family: Arial;
+    margin: 40px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+button {
+    padding: 8px 16px;
+    margin: 10px;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 300px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Startup Data Dashboard</h2>
+
+<input
+    type="text"
+    id="searchInput"
+    placeholder="Search startup name..."
+>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Industry</th>
+<th>Location</th>
+<th>Team Size</th>
+<th>Status</th>
+<th>Description</th>
+<th>Website</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+<div>
+
+<button onclick="previousPage()">
+Previous
+</button>
+
+<span id="pageInfo">
+Page 1
+</span>
+
+<button onclick="nextPage()">
+Next
+</button>
+
+</div>
+
+<script>
+
+let currentPage = 1;
+let totalPages = 1;
+
+const LIMIT = 50;
+
+async function loadData(page = 1) {
+
+    const searchValue =
+        document.getElementById(
+            "searchInput"
+        ).value.trim();
+
+    const response =
+        await fetch(
+            `/startups?page=${page}&limit=${LIMIT}&search=${encodeURIComponent(searchValue)}`
+        );
+
+    const result =
+        await response.json();
+
+    currentPage = result.page || 1;
+
+    totalPages = result.total_pages || 1;
+
+    const tableBody =
+        document.getElementById(
+            "tableBody"
+        );
+
+    tableBody.innerHTML = "";
+
+   (result.data || []).forEach(startup => {
+        const row = document.createElement("tr");
+        const website = startup.website
+        ? `<a href="${startup.website}" target="_blank" rel="noopener noreferrer">Open</a>`
+        : "";
+
+        row.innerHTML = `
+            <td>${startup.name || ""}</td>
+            <td>${startup.industry || ""}</td>
+            <td>${startup.location || ""}</td>
+            <td>${startup.team_size || ""}</td>
+            <td>${startup.status || ""}</td>
+            <td>${startup.description || ""}</td>
+            <td>${website}</td>
+
+        `;
+        tableBody.appendChild(row);
+    });
+
+    document.getElementById("pageInfo").innerText =
+        `Page ${currentPage} of ${totalPages}`;
+
+}
+
+function nextPage() {
+
+    if (currentPage < totalPages) {
+
+        loadData(
+            currentPage + 1
+        );
+
+    }
+
+}
+
+function previousPage() {
+
+    if (currentPage > 1) {
+
+        loadData(
+            currentPage - 1
+        );
+
+    }
+
+}
+
+/* AUTO LOAD FIRST PAGE */
+
+loadData(1);
+
+/* FILTER LIVE */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "input",
+        () => loadData(1)
+    );
+
+</script>
+
+</body>
+
+</html>
