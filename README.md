@@ -78,34 +78,27 @@ https://api.ycombinator.com/v0.1/companies
 
 ## Setup Instructions
 
-### 1) Install Dependencies
-
 ```bash
+### 1) Install Dependencies
 pip install -r requirements.txt
 
 ### 2) Create `.env` File
-
 MONGO_URI=your_mongodb_connection_string  
 INTERVAL_MINUTES=60
 
 ### 3) Run Scheduler
-
-```bash
 python -m scheduler.scheduler
 
 ### 4) Run API Server
-
-```bash
 python -m uvicorn api.main:app --reload
 
 ### 5) Open Application
-
 http://127.0.0.1:8000  
 
 Swagger Docs:
 
 http://127.0.0.1:8000/docs
-
+```
 ---
 
 ## API Endpoints
