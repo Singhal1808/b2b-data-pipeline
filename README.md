@@ -11,15 +11,12 @@ The pipeline runs automatically using a scheduler to keep the data up to date wi
 ## Live Deployment
 
 Application URL:
-
 https://b2b-data-pipeline.onrender.com
 
 API Endpoint Example:
-
 https://b2b-data-pipeline.onrender.com/startups?page=1&limit=50
 
 Swagger Documentation:
-
 https://b2b-data-pipeline.onrender.com/docs
 
 ---
@@ -78,35 +75,38 @@ https://api.ycombinator.com/v0.1/companies
 
 ## Setup Instructions
 
-```bash
 ### 1) Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
 ### 2) Create `.env` File
+```bash
 MONGO_URI=your_mongodb_connection_string  
 INTERVAL_MINUTES=60
+```
 
 ### 3) Run Scheduler
+```bash
 python -m scheduler.scheduler
+```
 
 ### 4) Run API Server
+```bash
 python -m uvicorn api.main:app --reload
+```
 
 ### 5) Open Application
+```bash
 http://127.0.0.1:8000  
-
-Swagger Docs:
-
-http://127.0.0.1:8000/docs
 ```
+
 ---
 
 ## API Endpoints
 
 GET /
-
 GET /startups?page=1&limit=50
-
 GET /health
 
 ---
@@ -114,23 +114,33 @@ GET /health
 ## Deployment (Render)
 
 Build Command:
-
+```bash
 pip install -r requirements.txt
+```
 
 Start Command:
-
+```bash
 uvicorn api.main:app --host 0.0.0.0 --port 10000
+```
 
 Environment Variables:
-
+```bash
 MONGO_URI  
 INTERVAL_MINUTES
+```
 
 ---
 
 ## Screenshots
 
-![](screenshots/image1.png)
-![](screenshots/image2.png)
-![](screenshots/image3.png)
-![](screenshots/image4.png)
+<table>
+<tr>
+<td><img src="screenshots/image1.png" width="500"/></td>
+<td><img src="screenshots/image2.png" width="500"/></td>
+</tr>
+
+<tr>
+<td><img src="screenshots/image3.png" width="500"/></td>
+<td><img src="screenshots/image4.png" width="500"/></td>
+</tr>
+</table>
