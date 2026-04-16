@@ -8,6 +8,22 @@ The pipeline runs automatically using a scheduler to keep the data up to date wi
 
 ---
 
+## Live Deployment
+
+Application URL:
+
+https://b2b-data-pipeline.onrender.com
+
+API Endpoint Example:
+
+https://b2b-data-pipeline.onrender.com/startups?page=1&limit=50
+
+Swagger Documentation:
+
+https://b2b-data-pipeline.onrender.com/docs
+
+---
+
 ## Problem Statement
 
 Businesses often need structured information about startups, competitors, and market players, but this data is scattered across multiple sources and not readily available in a clean, usable format.
@@ -64,6 +80,7 @@ https://api.ycombinator.com/v0.1/companies
 
 ### 1) Install Dependencies
 
+```bash
 pip install -r requirements.txt
 
 ### 2) Create `.env` File
@@ -73,10 +90,12 @@ INTERVAL_MINUTES=60
 
 ### 3) Run Scheduler
 
+```bash
 python -m scheduler.scheduler
 
 ### 4) Run API Server
 
+```bash
 python -m uvicorn api.main:app --reload
 
 ### 5) Open Application
